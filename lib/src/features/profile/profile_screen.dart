@@ -8,13 +8,14 @@ class ProfileScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Profile')),
-        body: Center(
-          child: ElevatedButton(
-            onPressed:() => context.push('/profil'),
-            child: const Text('Ir a perfil'),
-          ),
+      appBar: AppBar(
+        title: const Text('PERFIL')),
+      body: Center(
+        child: ElevatedButton(
+          onPressed:() => context.push('/profile'),
+          child: const Text('Ir a perfil'),
         ),
-    ); // TODO: implement build
+      ),
+    );
   }
 }

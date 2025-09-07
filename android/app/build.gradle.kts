@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.proyecto_actas"
-    compileSdk = 34                                // >= 30 para <queries/>
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
