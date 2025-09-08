@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '/src/widgets/appscaffold.dart';
+import '/src/shared/widgets/AppBarRappi.dart';
 
 class Settings extends StatelessWidget{
   const Settings({super.key});

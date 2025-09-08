@@ -1,7 +1,5 @@
 // lib/src/theme.dart
 import 'package:flutter/material.dart';
-// Opcional: tipografías modernas (actívalo en buildTextTheme())
-import 'package:google_fonts/google_fonts.dart';
 
 /// Paleta corporativa (ajústala si lo necesitas)
 class BrandColors {
@@ -18,6 +16,8 @@ class AppTheme {
   static ThemeData light() {
     final base = ThemeData(
       useMaterial3: true,
+      // 👇 clave: fija la familia global a Poppins (de assets/fonts)
+      fontFamily: 'Poppins',
       colorScheme: ColorScheme.fromSeed(
         seedColor: BrandColors.blue,
         primary: BrandColors.blue,
@@ -25,13 +25,14 @@ class AppTheme {
         tertiary: BrandColors.blueLight,
         surface: Colors.white,
         onSurface: BrandColors.textDark,
-        error: Colors.red.shade700,
+        error: Colors.red,
         brightness: Brightness.light,
       ),
       scaffoldBackgroundColor: BrandColors.neutralBg,
     );
 
     return base.copyWith(
+      // 👇 construye sobre el textTheme base sin GoogleFonts
       textTheme: buildTextTheme(base.textTheme, isDark: false),
       appBarTheme: const AppBarTheme(
         backgroundColor: BrandColors.blue,
@@ -118,15 +119,16 @@ class AppTheme {
         iconColor: BrandColors.blue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       ),
-      // Puedes añadir más componentes aquí si los usas (DialogTheme, TooltipTheme, etc.)
     );
   }
 
-  /// Tema OSCURO global (opcional, combina con la misma paleta)
+  /// Tema OSCURO global
   static ThemeData dark() {
     final base = ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
+      // 👇 también en dark
+      fontFamily: 'Poppins',
       colorScheme: ColorScheme.fromSeed(
         seedColor: BrandColors.blue,
         primary: const Color(0xFF8FB3FF),
@@ -134,7 +136,7 @@ class AppTheme {
         tertiary: const Color(0xFF7DBBFF),
         surface: const Color(0xFF171A1F),
         onSurface: Colors.white,
-        error: Colors.red.shade400,
+        error: Colors.redAccent,
         brightness: Brightness.dark,
       ),
       scaffoldBackgroundColor: const Color(0xFF0F1216),
@@ -147,7 +149,6 @@ class AppTheme {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF2D5BFF),
@@ -211,24 +212,28 @@ class AppTheme {
     );
   }
 
-  /// Tipografía (activa GoogleFonts aquí si quieres)
+  /// Tipografía: ajusta pesos/colores sobre el TextTheme base.
+  /// No usa GoogleFonts; el `fontFamily` ya está fijado a 'Poppins' en ThemeData.
   static TextTheme buildTextTheme(TextTheme base, {required bool isDark}) {
-    // Usa Inter (o Poppins) si agregaste google_fonts al pubspec:
-    // flutter pub add google_fonts
-    final t = GoogleFonts.interTextTheme(base);
+    final color = isDark ? Colors.white : BrandColors.textDark;
 
-    return t.copyWith(
-      titleLarge: t.titleLarge?.copyWith(
+    return base.copyWith(
+      titleLarge: base.titleLarge?.copyWith(
+        // Poppins Bold ~700
         fontWeight: FontWeight.w700,
         fontSize: 22,
-        color: isDark ? Colors.white : BrandColors.textDark,
+        color: color,
       ),
-      bodyMedium: t.bodyMedium?.copyWith(
+      bodyMedium: base.bodyMedium?.copyWith(
+        // Poppins Regular ~400
+        fontWeight: FontWeight.w400,
         fontSize: 16,
-        color: isDark ? Colors.white : BrandColors.textDark,
+        color: color,
       ),
-      labelLarge: t.labelLarge?.copyWith(
+      labelLarge: base.labelLarge?.copyWith(
+        // Poppins SemiBold ~600
         fontWeight: FontWeight.w600,
+        color: color,
       ),
     );
   }

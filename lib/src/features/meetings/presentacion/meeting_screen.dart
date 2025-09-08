@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:proyecto_actas/src/widgets/appscaffold.dart';
+import '/src/shared/widgets/AppBarRappi.dart';
 
 class MeetingScreen extends StatelessWidget {
   const MeetingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
+    return AppBarRappi(
       title: 'Reunion',
       body: SafeArea(
         child: SingleChildScrollView(

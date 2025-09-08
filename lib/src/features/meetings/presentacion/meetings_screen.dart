@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:proyecto_actas/src/widgets/appscaffold.dart';
+import '/src/shared/widgets/AppBarRappi.dart';
 
 class MeetingsScreen extends StatelessWidget{
 
@@ -8,7 +8,7 @@ class MeetingsScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
+    return AppBarRappi(
      title: 'Reuniones',
       body: ListView.separated(
         padding: const EdgeInsets.all(16),

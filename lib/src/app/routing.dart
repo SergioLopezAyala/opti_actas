@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:proyecto_actas/src/features/acts/actas_screen.dart';
-import 'package:proyecto_actas/src/features/meetings/meeting_screen.dart';
-import 'package:proyecto_actas/src/features/meetings/meetings_screen.dart';
+import 'package:proyecto_actas/src/features/acts/presentacion/actas_screen.dart';
+import 'package:proyecto_actas/src/features/meetings/presentacion/meeting_screen.dart';
+import 'package:proyecto_actas/src/features/meetings/presentacion/meetings_screen.dart';
 import 'package:proyecto_actas/src/features/profile/profile_screen.dart';
 import 'package:proyecto_actas/src/features/settings/settings_screen.dart';
 
-import 'features/auth/login_screen.dart';
-import 'features/home_screen.dart';
-import 'features/Acts/acta_screen.dart';
+import '../features/auth/presentacion/login_screen.dart';
+import '../features/home_screen.dart';
+import '../features/Acts/presentacion/acta_screen.dart';
 
 
 final GoRouter router =GoRouter(

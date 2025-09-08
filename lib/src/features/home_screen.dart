@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '/src/widgets/appscaffold.dart';
+import '/src/shared/widgets/AppBarRappi.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
+    return AppBarRappi(
       title: 'Inicio',
       body: SafeArea(
         child: SingleChildScrollView(

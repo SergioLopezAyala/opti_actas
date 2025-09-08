@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/src/widgets/appscaffold.dart';
+import '/src/shared/widgets/AppBarRappi.dart';
 
 
 class ActasScreen extends StatelessWidget {
@@ -8,7 +8,7 @@ class ActasScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
+    return AppBarRappi(
      title: 'Actas',
       body: const Center(child: Text('Pantalla de Actas')),
     );

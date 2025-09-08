@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class AppScaffold extends StatelessWidget {
+class AppBarRappi extends StatelessWidget {
   final Widget body;
   final String? title;
   final bool showSearch;
   final List<Widget>? actions;
   final FloatingActionButton? floatingActionButton;
 
-  const AppScaffold({
+  const AppBarRappi({
     super.key,
     required this.body,
     this.title,
@@ -17,18 +17,13 @@ class AppScaffold extends StatelessWidget {
     this.floatingActionButton,
   });
 
-  // Mejor tener la key fuera de build para no recrearla cada frame
   static final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-
-      // Drawer lateral
       drawer: const _AppDrawer(),
-
-      // AppBar curvo estilo Rappi (SIN ternario ni código muerto)
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(110),
         child: _CurvedHeader(
@@ -38,7 +33,6 @@ class AppScaffold extends StatelessWidget {
           showSearch: showSearch,
         ),
       ),
-
       body: body,
       floatingActionButton: floatingActionButton,
     );
@@ -63,7 +57,7 @@ class _AppDrawer extends StatelessWidget {
             title: const Text('Inicio'),
             onTap: () {
               Navigator.pop(context);      // cierra el drawer
-              context.go('/home');         // ruta corregida
+              context.push('/home');         // ruta corregida
             },
           ),
           ListTile(
@@ -71,7 +65,7 @@ class _AppDrawer extends StatelessWidget {
             title: const Text('Reuniones'),
             onTap: () {
               Navigator.pop(context);
-              context.go('/reuniones');
+              context.push('/reuniones');
             },
           ),
           ListTile(
@@ -79,7 +73,7 @@ class _AppDrawer extends StatelessWidget {
             title: const Text('Actas'),
             onTap: () {
               Navigator.pop(context);
-              context.go('/actas');
+              context.push('/actas');
             },
           ),
           const Divider(),
@@ -88,7 +82,7 @@ class _AppDrawer extends StatelessWidget {
             title: const Text('Configuración'),
             onTap: () {
               Navigator.pop(context);
-              context.go('/settings');
+              context.push('/settings');
             },
           ),
         ],
@@ -97,18 +91,19 @@ class _AppDrawer extends StatelessWidget {
   }
 }
 
-/// Header curvo estilo “Rappi”
 class _CurvedHeader extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback onMenuTap;
   final List<Widget>? actions;
   final bool showSearch;
+  final bool centerTitle; // <- NUEVO
 
   const _CurvedHeader({
     required this.title,
     required this.onMenuTap,
     this.actions,
     this.showSearch = true,
+    this.centerTitle = true, // <- NUEVO
   });
 
   @override
@@ -124,22 +119,45 @@ class _CurvedHeader extends StatelessWidget implements PreferredSizeWidget {
       padding: const EdgeInsets.only(top: 30, left: 8, right: 8, bottom: 16),
       child: Column(
         children: [
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.menu, color: Colors.white),
-                onPressed: onMenuTap, // abre el drawer
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  title,
-                  style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          // --- BARRA SUPERIOR ---
+          SizedBox(
+            height: 40,
+            child: Stack(
+              children: [
+                // Menú a la izquierda
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    icon: const Icon(Icons.menu, color: Colors.white),
+                    onPressed: onMenuTap,
+                  ),
                 ),
-              ),
-              Row(children: actions ?? const []),
-            ],
+
+                // Título centrado en toda la pantalla
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+                // Actions a la derecha
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: actions ?? const [],
+                  ),
+                ),
+              ],
+            ),
           ),
+
           if (showSearch) ...[
             const SizedBox(height: 10),
             TextField(
